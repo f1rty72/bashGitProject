@@ -9,8 +9,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  fork:
-    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -38,9 +36,8 @@ jobs:
           echo "Have a great day!"
 
   repo_forked:
-
     runs-on: ubuntu-latest
-    if: github.event_name == 'fork'
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true
     needs: build
     env:
       user: Steven Universe
